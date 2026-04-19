@@ -515,6 +515,171 @@
     color: rgba(244, 236, 216, 0.72);
   }
 
+  /* ===== SECTION: WHITE LABEL ===== */
+  .whitelabel {
+    background: var(--bg);
+    padding: 120px 40px;
+    position: relative;
+  }
+  .whitelabel::before {
+    content: "";
+    position: absolute;
+    top: 40px; left: 50%;
+    transform: translateX(-50%);
+    width: 60px; height: 1px;
+    background: var(--gold);
+  }
+  .whitelabel-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .whitelabel-intro {
+    text-align: center;
+    margin-bottom: 70px;
+  }
+  .whitelabel-intro .section-label {
+    margin-bottom: 18px;
+  }
+  .whitelabel h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 4vw, 56px);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+    margin-bottom: 22px;
+    max-width: 780px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .whitelabel h2 em {
+    font-style: italic;
+    color: var(--gold-deep);
+    font-weight: 500;
+  }
+  .whitelabel-lede {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* Three-card grid */
+  .whitelabel-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+  .wl-card {
+    background: #ffffff;
+    border: 1px solid var(--rule);
+    padding: 38px 32px 34px;
+    position: relative;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .wl-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+  }
+  .wl-card-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--gold);
+    position: absolute;
+    top: 20px;
+    right: 26px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+  .wl-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .wl-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .wl-card li {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    padding: 6px 0 6px 16px;
+    position: relative;
+  }
+  .wl-card li::before {
+    content: "—";
+    color: var(--gold);
+    position: absolute;
+    left: 0;
+    font-weight: 500;
+  }
+
+  /* Footer row with MOQ + CTA */
+  .whitelabel-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 34px;
+    background: rgba(167, 124, 46, 0.06);
+    border: 1px solid rgba(167, 124, 46, 0.2);
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .wl-footer-note {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .wl-moq-label {
+    font-size: 10px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    font-weight: 500;
+  }
+  .wl-moq-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .btn-gold-dark {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 14px 26px;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.2s, transform 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-gold-dark:hover {
+    background: var(--forest);
+    transform: translateY(-1px);
+  }
+  .btn-gold-dark .arrow { font-size: 16px; }
+
+  .section-label.gold-on-dark {
+    color: var(--gold-deep);
+  }
+
   /* ===== SECTION: SPEC SUMMARY ===== */
   .spec-summary {
     max-width: 1280px;
@@ -902,6 +1067,9 @@
       gap: 30px;
     }
     .pillars-grid { grid-template-columns: 1fr; gap: 40px; }
+    .whitelabel-grid { grid-template-columns: 1fr; gap: 20px; }
+    .whitelabel { padding: 70px 20px; }
+    .whitelabel-footer { flex-direction: column; align-items: flex-start; }
     .spec-card { grid-template-columns: 1fr; padding: 32px 24px; gap: 32px; }
     .contact-inner { grid-template-columns: 1fr; gap: 50px; }
     .contact-form { padding: 28px 24px 26px; }
@@ -939,6 +1107,7 @@
       <a href="#about">About</a>
       <a href="#products">Products</a>
       <a href="#quality">Quality</a>
+      <a href="#white-label">White Label</a>
       <a href="#spec">Specifications</a>
       <a href="#contact" class="nav-cta">Contact</a>
     </div>
@@ -1047,6 +1216,69 @@
         <p>Particle size, flow, and solubility tuned for capsule, tablet, gummy, beverage, and tincture applications. Ships in 1kg, 5kg, and 25kg packaging, FOB Cape Town.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- WHITE LABEL -->
+<section class="whitelabel" id="white-label">
+  <div class="whitelabel-inner">
+
+    <div class="whitelabel-intro">
+      <div class="section-label gold-on-dark">Beyond Bulk</div>
+      <h2>Full-turnkey <em>white-label</em> manufacturing.</h2>
+      <p class="whitelabel-lede">
+        For brands who want to launch a Kanna product without building a supply chain. We formulate, manufacture, package, label, and ship &mdash; using the same extract we supply in bulk. Your brand on the bottle, our work behind it.
+      </p>
+    </div>
+
+    <div class="whitelabel-grid">
+
+      <div class="wl-card">
+        <div class="wl-card-num">I</div>
+        <h3>Every Format</h3>
+        <ul>
+          <li>Capsules &amp; tablets</li>
+          <li>Gummies</li>
+          <li>Tinctures &amp; liquids</li>
+          <li>Functional beverages</li>
+        </ul>
+      </div>
+
+      <div class="wl-card">
+        <div class="wl-card-num">II</div>
+        <h3>Full Turnkey</h3>
+        <ul>
+          <li>Formulation &amp; R&amp;D</li>
+          <li>Manufacturing</li>
+          <li>Custom packaging &amp; label design</li>
+          <li>Fulfilment to your warehouse or 3PL</li>
+        </ul>
+      </div>
+
+      <div class="wl-card">
+        <div class="wl-card-num">III</div>
+        <h3>Built In</h3>
+        <ul>
+          <li>Vertically integrated from the plant up</li>
+          <li>HPLC-verified potency on every batch</li>
+          <li>US-compliant documentation</li>
+          <li>Shipping from Cape Town, FOB or DDP</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="whitelabel-footer">
+      <div class="wl-footer-note">
+        <span class="wl-moq-label">Project-Based</span>
+        <span class="wl-moq-value">MOQ scaled to your format</span>
+      </div>
+      <a href="#contact" class="btn btn-gold-dark">
+        Discuss a White-Label Project
+        <span class="arrow">&rarr;</span>
+      </a>
+    </div>
+
   </div>
 </section>
 
