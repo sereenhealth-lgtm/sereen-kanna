@@ -345,29 +345,100 @@
     margin: 0 auto;
     padding: 0 40px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
+    grid-template-columns: 0.7fr 1fr;
+    gap: 70px;
     align-items: center;
   }
-  .product-image {
+
+  /* ===== PRODUCT CAROUSEL ===== */
+  .product-carousel {
     position: relative;
-    aspect-ratio: 16/11;
-    overflow: hidden;
-    border-radius: 2px;
-    box-shadow: 0 30px 60px -30px rgba(28, 26, 21, 0.35);
-    background: #1c1a15;
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
   }
-  .product-image img,
-  .product-image video {
+  .carousel-viewport {
+    position: relative;
+    aspect-ratio: 9/16;
+    overflow: hidden;
+    border-radius: 3px;
+    background: #1c1a15;
+    box-shadow: 0 30px 60px -20px rgba(28, 26, 21, 0.4);
+  }
+  .carousel-track {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    transition: transform 0.55s cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+  .carousel-slide {
+    position: relative;
+    min-width: 100%;
+    height: 100%;
+  }
+  .carousel-slide video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
     display: block;
-    transition: transform 1.2s ease;
   }
-  .product-image:hover img,
-  .product-image:hover video { transform: scale(1.03); }
+
+  /* Arrows */
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    background: rgba(250, 246, 238, 0.92);
+    border: 1px solid rgba(122, 88, 22, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: var(--ink);
+    opacity: 0;
+    transition: opacity 0.25s, background 0.2s, transform 0.2s;
+    z-index: 2;
+  }
+  .carousel-arrow:hover {
+    background: var(--gold);
+    color: #fff;
+    transform: translateY(-50%) scale(1.08);
+  }
+  .product-carousel:hover .carousel-arrow {
+    opacity: 1;
+  }
+  .carousel-prev { left: 12px; }
+  .carousel-next { right: 12px; }
+
+  /* Dots */
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 22px;
+  }
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(122, 88, 22, 0.25);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.25s, transform 0.25s, width 0.35s;
+  }
+  .carousel-dot:hover { background: rgba(122, 88, 22, 0.6); }
+  .carousel-dot.is-active {
+    background: var(--gold-deep);
+    width: 24px;
+    border-radius: 4px;
+  }
 
   .product-copy h2 {
     font-family: 'Cormorant Garamond', serif;
@@ -1059,12 +1130,13 @@
     }
     .product-showcase-inner {
       grid-template-columns: 1fr;
-      gap: 32px;
+      gap: 40px;
       padding: 0 20px;
     }
-    .product-image {
-      aspect-ratio: 4/3;
+    .product-carousel {
+      max-width: 320px;
     }
+    .carousel-arrow { opacity: 1; width: 36px; height: 36px; }
     .pitch, .pillars-intro, .spec-head {
       grid-template-columns: 1fr;
       gap: 30px;
@@ -1172,17 +1244,63 @@
 <!-- PRODUCT SHOWCASE -->
 <section class="product-showcase" id="products">
   <div class="product-showcase-inner">
-    <div class="product-image">
-      <video 
-        autoplay 
-        muted 
-        loop 
-        playsinline 
-        preload="metadata"
-        aria-label="Sereen Kanna water-soluble extract demonstration"
-      >
-        <source src="extract-demo.mp4" type="video/mp4" />
-      </video>
+    <div class="product-carousel" data-carousel>
+      <div class="carousel-viewport">
+        <div class="carousel-track" data-carousel-track>
+          <div class="carousel-slide is-active" data-carousel-slide>
+            <video
+              autoplay muted loop playsinline
+              preload="auto"
+              data-carousel-video
+              aria-label="Sereen Kanna extract demonstration"
+            >
+              <source src="video-1.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="carousel-slide" data-carousel-slide>
+            <video
+              muted loop playsinline
+              preload="none"
+              data-carousel-video
+              aria-label="Sereen Kanna extract demonstration"
+            >
+              <source src="video-2.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="carousel-slide" data-carousel-slide>
+            <video
+              muted loop playsinline
+              preload="none"
+              data-carousel-video
+              aria-label="Sereen Kanna extract demonstration"
+            >
+              <source src="video-3.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="carousel-slide" data-carousel-slide>
+            <video
+              muted loop playsinline
+              preload="none"
+              data-carousel-video
+              aria-label="Sereen Kanna extract demonstration"
+            >
+              <source src="video-4.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+        <button class="carousel-arrow carousel-prev" data-carousel-prev aria-label="Previous video">
+          <span>&larr;</span>
+        </button>
+        <button class="carousel-arrow carousel-next" data-carousel-next aria-label="Next video">
+          <span>&rarr;</span>
+        </button>
+      </div>
+      <div class="carousel-dots" data-carousel-dots>
+        <button class="carousel-dot is-active" data-carousel-dot="0" aria-label="Go to video 1"></button>
+        <button class="carousel-dot" data-carousel-dot="1" aria-label="Go to video 2"></button>
+        <button class="carousel-dot" data-carousel-dot="2" aria-label="Go to video 3"></button>
+        <button class="carousel-dot" data-carousel-dot="3" aria-label="Go to video 4"></button>
+      </div>
     </div>
     <div class="product-copy">
       <div class="section-label">The Product</div>
@@ -1420,6 +1538,148 @@
       alert('Sorry, something went wrong sending your message. Please email wholesale@sereenkanna.com directly.');
     });
   }
+</script>
+
+<script>
+  // ===== PRODUCT CAROUSEL =====
+  (function () {
+    var carousel = document.querySelector('[data-carousel]');
+    if (!carousel) return;
+
+    var track = carousel.querySelector('[data-carousel-track]');
+    var slides = carousel.querySelectorAll('[data-carousel-slide]');
+    var videos = carousel.querySelectorAll('[data-carousel-video]');
+    var dots = carousel.querySelectorAll('[data-carousel-dot]');
+    var prevBtn = carousel.querySelector('[data-carousel-prev]');
+    var nextBtn = carousel.querySelector('[data-carousel-next]');
+
+    var currentIndex = 0;
+    var total = slides.length;
+    var AUTOPLAY_MS = 5000;
+    var autoAdvanceTimer = null;
+    var userInteracted = false;
+    var interactionResetTimer = null;
+
+    function goTo(index) {
+      // Wrap around
+      if (index < 0) index = total - 1;
+      if (index >= total) index = 0;
+      currentIndex = index;
+
+      // Translate the track
+      track.style.transform = 'translateX(-' + (index * 100) + '%)';
+
+      // Update dots
+      dots.forEach(function (dot, i) {
+        dot.classList.toggle('is-active', i === index);
+      });
+
+      // Update slides
+      slides.forEach(function (slide, i) {
+        slide.classList.toggle('is-active', i === index);
+      });
+
+      // Handle video playback
+      videos.forEach(function (video, i) {
+        if (i === index) {
+          // Lazy-load the video source if needed
+          if (video.preload === 'none') {
+            video.preload = 'auto';
+            video.load();
+          }
+          video.currentTime = 0;
+          var playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(function () { /* Autoplay blocked - silent fail */ });
+          }
+        } else {
+          video.pause();
+        }
+      });
+    }
+
+    function startAutoAdvance() {
+      stopAutoAdvance();
+      autoAdvanceTimer = setInterval(function () {
+        if (!userInteracted) {
+          goTo(currentIndex + 1);
+        }
+      }, AUTOPLAY_MS);
+    }
+
+    function stopAutoAdvance() {
+      if (autoAdvanceTimer) {
+        clearInterval(autoAdvanceTimer);
+        autoAdvanceTimer = null;
+      }
+    }
+
+    function markInteracted() {
+      userInteracted = true;
+      if (interactionResetTimer) clearTimeout(interactionResetTimer);
+      // Resume auto-advance after 15 seconds of no interaction
+      interactionResetTimer = setTimeout(function () {
+        userInteracted = false;
+      }, 15000);
+    }
+
+    // Button handlers
+    prevBtn.addEventListener('click', function () {
+      markInteracted();
+      goTo(currentIndex - 1);
+    });
+    nextBtn.addEventListener('click', function () {
+      markInteracted();
+      goTo(currentIndex + 1);
+    });
+
+    // Dot handlers
+    dots.forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        markInteracted();
+        goTo(parseInt(dot.getAttribute('data-carousel-dot'), 10));
+      });
+    });
+
+    // Pause auto-advance when hovering
+    carousel.addEventListener('mouseenter', function () {
+      stopAutoAdvance();
+    });
+    carousel.addEventListener('mouseleave', function () {
+      if (!userInteracted) startAutoAdvance();
+    });
+
+    // Swipe support
+    var touchStartX = 0;
+    var touchEndX = 0;
+    carousel.addEventListener('touchstart', function (e) {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    carousel.addEventListener('touchend', function (e) {
+      touchEndX = e.changedTouches[0].screenX;
+      var diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 40) {
+        markInteracted();
+        goTo(diff > 0 ? currentIndex + 1 : currentIndex - 1);
+      }
+    }, { passive: true });
+
+    // Start auto-advance when carousel scrolls into view
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            startAutoAdvance();
+          } else {
+            stopAutoAdvance();
+          }
+        });
+      }, { threshold: 0.4 });
+      observer.observe(carousel);
+    } else {
+      startAutoAdvance();
+    }
+  })();
 </script>
 
 <!-- FOOTER -->
