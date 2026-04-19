@@ -1582,7 +1582,7 @@
       // Handle video playback
       videos.forEach(function (video, i) {
         if (i === index) {
-          // Lazy-load the video source if needed
+          // Ensure source is loaded for active video
           if (video.preload === 'none') {
             video.preload = 'auto';
             video.load();
@@ -1596,6 +1596,13 @@
           video.pause();
         }
       });
+
+      // Preload the NEXT video in background so it's ready when user advances
+      var nextIndex = (index + 1) % total;
+      var nextVideo = videos[nextIndex];
+      if (nextVideo && nextVideo.preload === 'none') {
+        nextVideo.preload = 'metadata';
+      }
     }
 
     function startAutoAdvance() {
