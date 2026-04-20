@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- warm near-black rounded square -->
+  <rect width="64" height="64" rx="12" ry="12" fill="#0F0B08"/>
+  <!-- thin gold inner border -->
+  <rect x="3" y="3" width="58" height="58" rx="10" ry="10"
+        fill="none" stroke="#A77C2E" stroke-width="0.75" opacity="0.55"/>
+  <!-- Serif S -->
+  <text x="32" y="46" text-anchor="middle"
+        font-family="Lora, 'Playfair Display', Georgia, serif"
+        font-size="44" font-weight="600" fill="#A77C2E"
+        letter-spacing="-1">S</text>
+  <!-- small gold dot (brand mark from Sereen identity) -->
+  <circle cx="48" cy="18" r="2.2" fill="#BF9444"/>
+</svg>
