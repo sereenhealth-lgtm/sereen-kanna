@@ -1062,8 +1062,8 @@
   .form-success {
     display: none;
     margin-top: 18px;
-    padding: 18px 20px;
-    background: rgba(122, 88, 22, 0.1);
+    padding: 22px 24px;
+    background: rgba(122, 88, 22, 0.08);
     border-left: 2px solid var(--gold-deep);
     color: var(--ink);
     font-size: 14px;
@@ -1072,6 +1072,27 @@
   .form-success strong {
     color: var(--gold-deep);
     font-weight: 500;
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    letter-spacing: -0.005em;
+  }
+  .form-success-detail {
+    display: block;
+    color: var(--ink-soft);
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
+  .form-success-detail a {
+    color: var(--gold-deep);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(122, 88, 22, 0.3);
+    transition: border-color 0.2s;
+  }
+  .form-success-detail a:hover {
+    border-bottom-color: var(--gold-deep);
   }
 
   /* ===== FOOTER ===== */
@@ -1521,7 +1542,8 @@
         By submitting, you consent to Sereen contacting you about your enquiry. We don&rsquo;t share your details.
       </div>
       <div class="form-success" id="form-success" role="status" aria-live="polite">
-        <strong>Thank you.</strong> We&rsquo;ve received your enquiry and will respond shortly.
+        <strong>Thank you &mdash; your enquiry has been received.</strong>
+        <span class="form-success-detail">A member of our team will respond within one business day with a current Certificate of Analysis, sample allocation, and pricing. For urgent matters, reach us on WhatsApp at <a href="https://wa.me/27630656192" target="_blank" rel="noopener">+27 63 065 6192</a>.</span>
       </div>
     </form>
   </div>
@@ -1531,6 +1553,7 @@
   function handleContactSubmit(form) {
     var successEl = document.getElementById('form-success');
     var submitBtn = form.querySelector('button[type="submit"]');
+    var consentEl = form.querySelector('.form-consent');
 
     // Disable the submit button while posting
     if (submitBtn) {
@@ -1550,8 +1573,34 @@
     })
     .then(function(response) {
       if (response.ok) {
-        // Success
-        form.querySelectorAll('input, textarea, button').forEach(function(el) { el.disabled = true; });
+        // ===== CONVERSION TRACKING =====
+        // Fires only on successful form submission, never on click or failure.
+
+        // 1. Google Analytics 4 standard lead event
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', {
+            'event_category': 'Wholesale Enquiry',
+            'event_label': 'wholesale-enquiry-form',
+            'value': 50,
+            'currency': 'USD'
+          });
+
+          // 2. Google Ads conversion event
+          // Replace AW-XXXXXXXXX/YYYYYYYYYYYYYYYY with your actual
+          // Conversion ID and Conversion Label from Google Ads.
+          gtag('event', 'conversion', {
+            'send_to': 'AW-XXXXXXXXX/YYYYYYYYYYYYYYYY',
+            'value': 50.0,
+            'currency': 'USD',
+            'event_callback': function() { /* no-op */ }
+          });
+        }
+
+        // ===== UI: show success state =====
+        form.querySelectorAll('input, textarea, button').forEach(function(el) {
+          el.style.display = 'none';
+        });
+        if (consentEl) consentEl.style.display = 'none';
         successEl.style.display = 'block';
         successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } else {
