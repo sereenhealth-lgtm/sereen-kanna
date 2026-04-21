@@ -1543,7 +1543,7 @@
       </div>
       <div class="form-success" id="form-success" role="status" aria-live="polite">
         <strong>Thank you &mdash; your enquiry has been received.</strong>
-        <span class="form-success-detail">A member of our team will respond within one business day with a current Certificate of Analysis, sample allocation, and pricing. For urgent matters, reach us on WhatsApp at <a href="https://wa.me/27630656192" target="_blank" rel="noopener">+27 63 065 6192</a>.</span>
+        <span class="form-success-detail">A member of our team will respond within one business day. For urgent matters, reach us on WhatsApp at <a href="https://wa.me/27630656192" target="_blank" rel="noopener">+27 63 065 6192</a>.</span>
       </div>
     </form>
   </div>
@@ -1574,9 +1574,7 @@
     .then(function(response) {
       if (response.ok) {
         // ===== CONVERSION TRACKING =====
-        // Fires only on successful form submission, never on click or failure.
-
-        // 1. Google Analytics 4 standard lead event
+        // Fire GA4 event before redirect so it captures cleanly.
         if (typeof gtag === 'function') {
           gtag('event', 'generate_lead', {
             'event_category': 'Wholesale Enquiry',
@@ -1584,25 +1582,11 @@
             'value': 50,
             'currency': 'USD'
           });
-
-          // 2. Google Ads conversion event
-          // Replace AW-XXXXXXXXX/YYYYYYYYYYYYYYYY with your actual
-          // Conversion ID and Conversion Label from Google Ads.
-          gtag('event', 'conversion', {
-            'send_to': 'AW-XXXXXXXXX/YYYYYYYYYYYYYYYY',
-            'value': 50.0,
-            'currency': 'USD',
-            'event_callback': function() { /* no-op */ }
-          });
         }
 
-        // ===== UI: show success state =====
-        form.querySelectorAll('input, textarea, button').forEach(function(el) {
-          el.style.display = 'none';
-        });
-        if (consentEl) consentEl.style.display = 'none';
-        successEl.style.display = 'block';
-        successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Redirect to thank-you page — Google Ads URL-based conversion
+        // tracking picks up the /thankyou path and fires the conversion.
+        window.location.href = '/thankyou';
       } else {
         throw new Error('Submission failed: ' + response.status);
       }
