@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /thankyou
+
+Sitemap: https://wholesale.sereenkanna.com/sitemap.xml
